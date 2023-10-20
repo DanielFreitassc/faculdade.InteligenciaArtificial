@@ -29,5 +29,5 @@ Lembre-se, este repositório é uma representação do meu próprio aprendizado 
 
 Sinta-se à vontade para acompanhar minha jornada e, se você também é um iniciante, espero que encontre valor no que compartilho. Vamos aprender juntos! 💻📚🚀
 
-# No dia 20/10/2023 Ele professor falou que não vai cobrar na prova autômatos.
+# _No dia 20/10/2023 Ele professor falou que não vai cobrar na prova autômatos_ Ele retirou oque disse;
 
