@@ -31,7 +31,7 @@ A climatização manual é imprecisa e ineficiente. Logo, este sistema propõe u
 | Sensor DHT11 (temp/umid) | 1          |
 | Ventilador DC (PWM)      | 1          |
 | Transistor TIP31C        | 1          |
-| Resistores               | 1 (1kΩ)    |
+| Resistores  (1kΩ)        | 1     |
 | Diodo UF4007 | 1 |
 | Fonte externa 9V         | 1          |
 | Protoboard e jumpers     | Diversos   |
