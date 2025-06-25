@@ -29,7 +29,7 @@ A climatização manual é imprecisa e ineficiente. Logo, este sistema propõe u
 |--------------------------|------------|
 | Arduino UNO              | 1          |
 | Sensor DHT11 (temp/umid) | 1          |
-| Ventilador DC (PWM)      | 1          |
+| Ventilador DC 12V      | 1          |
 | Transistor TIP31C        | 1          |
 | Resistores  (1kΩ)        | 1     |
 | Diodo UF4007 | 1 |
