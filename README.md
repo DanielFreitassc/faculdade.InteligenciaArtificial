@@ -59,7 +59,12 @@ Essa abordagem evita picos abruptos, reduz ruído e consumo de energia, prolonga
 
 ---
 
-## 📸 Foto da Maquete
+## 📸 Fotos da Maquete
+![IMG_20250625_121524428](https://github.com/user-attachments/assets/02d4f704-343c-4039-9de3-f9c2b6e340ee)
+
+![IMG_20250625_121444652](https://github.com/user-attachments/assets/b52a30b5-3f09-4e69-90c7-a5b7520565d6)
+
+![IMG_20250625_121504157](https://github.com/user-attachments/assets/acd43b74-cac1-4c56-950e-874c733bb2ac)
 
 
 
