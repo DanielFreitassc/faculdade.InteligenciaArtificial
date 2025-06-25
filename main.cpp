@@ -2,11 +2,9 @@
 
 #define DHTPIN 8
 #define DHTTYPE DHT11
-
 DHT dht(DHTPIN, DHTTYPE);
 
 int ventilador = 9;
-
 float tempC = 0;
 int umidade = 0;
 
@@ -24,12 +22,11 @@ float pertinenciaTrapezoidal(float x, float a, float b, float c, float d) {
   else return (d - x) / (d - c);
 }
 
-
 void setup() {
   Serial.begin(9600);
   dht.begin();
   pinMode(ventilador, OUTPUT);
-  Serial.println("Sistema de controle de ventilador iniciado.");
+  Serial.println("Sistema de controle fuzzy contínuo iniciado.");
 }
 
 void loop() {
@@ -42,54 +39,33 @@ void loop() {
     return;
   }
 
-  float tempMuitoBaixa = pertinenciaTrapezoidal(tempC, -15, -5, 10, 20); 
-  float tempBaixa = pertinenciaTriangular(tempC, 15, 22, 30);
-  float tempMedia = pertinenciaTriangular(tempC, 28, 35, 42);
-  float tempAlta  = pertinenciaTriangular(tempC, 40, 48, 55);
-  float tempMuitoAlta = pertinenciaTrapezoidal(tempC, 50, 60, 70, 80); 
+  // Pertinências de temperatura
+  float pTempBaixa = pertinenciaTrapezoidal(tempC, 10, 15, 20, 25);   
+  float pTempMedia = pertinenciaTriangular(tempC, 22, 30, 38);       
+  float pTempAlta  = pertinenciaTrapezoidal(tempC, 34, 40, 45, 50);  
 
-  float umidMuitoBaixa = pertinenciaTrapezoidal(umidade, -15, -5, 15, 35);
-  float umidBaixa = pertinenciaTriangular(umidade, 30, 45, 60);
-  float umidMedia = pertinenciaTriangular(umidade, 55, 70, 85);
-  float umidAlta  = pertinenciaTriangular(umidade, 80, 95, 100); 
-  float umidMuitoAlta = pertinenciaTrapezoidal(umidade, 90, 100, 110, 120); 
-
-  float regra1_fanOff = max(tempMuitoBaixa, umidMuitoBaixa);
-
-  float regra2_fanMuitoBaixo = max(tempBaixa, umidBaixa);
-
-  float regra3_fanBaixo = max(tempMedia, umidMedia);
-
-  float regra4_fanMedio = max(tempAlta, umidAlta);
-
-  float regra5_fanAlto = max(tempMuitoAlta, umidMuitoAlta);
-
-  float numerador = (regra1_fanOff * 0) +
-                    (regra2_fanMuitoBaixo * 30) +   
-                    (regra3_fanBaixo * 80) +         
-                    (regra4_fanMedio * 150) +        
-                    (regra5_fanAlto * 255);
-
-  float denominador = regra1_fanOff +
-                      regra2_fanMuitoBaixo +
-                      regra3_fanBaixo +
-                      regra4_fanMedio +
-                      regra5_fanAlto;
+  // Cálculo contínuo de velocidade ponderada
+  float numerador = (pTempBaixa * 60) + (pTempMedia * 140) + (pTempAlta * 255);
+  float denominador = pTempBaixa + pTempMedia + pTempAlta;
 
   int velocidadeVentilador = 0;
   if (denominador > 0) {
     velocidadeVentilador = numerador / denominador;
   }
 
-  velocidadeVentilador = constrain(velocidadeVentilador, 0, 255);
+  // Garante torque mínimo se tiver velocidade não nula
+  if (velocidadeVentilador > 0 && velocidadeVentilador < 60) {
+    velocidadeVentilador = 60;
+  }
+
   analogWrite(ventilador, velocidadeVentilador);
 
   Serial.print("Temp: ");
   Serial.print(tempC);
   Serial.print(" °C | Umid: ");
   Serial.print(umidade);
-  Serial.print("% | Velocidade do Ventilador: ");
+  Serial.print("% | Velocidade: ");
   Serial.println(velocidadeVentilador);
 
-  delay(200);
+  delay(500);
 }
