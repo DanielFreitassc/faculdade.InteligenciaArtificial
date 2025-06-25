@@ -71,5 +71,3 @@ Essa abordagem evita picos abruptos, reduz ruído e consumo de energia, prolonga
 - Adição de display OLED para visualização local
 - Integração com ESP8266/ESP32 para monitoramento via Wi-Fi
 - Atuação em bomba d’água em vez de ventilador (versão para estufas)
-
-
